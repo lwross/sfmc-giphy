@@ -1,0 +1,108 @@
+<html>
+
+<head>
+	
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<style>
+ .ctstyle{
+  font-family: Verdana;
+  font-size: 14px;
+
+ }
+
+.itemlist{
+ font-size: 12px;
+}
+</style>
+
+</head>
+
+<body>
+
+
+<p class="ctstyle" align="center">
+<img width="80%" src="http://image.s4.exct.net/lib/fe8e1574746203787c/m/1/6bc4b8b8-19f2-41d3-8081-129b7b5a01c8.png" />
+<br />
+
+Select an image to from Sitecore CMS
+<br />
+
+	<input type="checkbox" id="scaleFit" onclick="javascript:chosen('')" value="Yes" ><span class="itemlist" style="padding-left: 10px;padding-right: 10px;">Scale to fit</span></input>
+<input type="checkbox" id="alignCenter" onclick="javascript:chosen('')" value="Yes" ><span class="itemlist" style="padding-left: 10px;padding-right: 10px;">Align to Center</span></input>
+</p>
+
+
+
+
+  <div >
+    <div class="list-group" id="list-tab" role="tablist">
+          <a class="list-group-item list-group-item-action ctstyle itemlist" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home" onclick="javascript:chosen('image1')"><image width="20%" id="image1" src="http://image.s4.exct.net/lib/fe8e1574746203787c/m/1/690f4c77-ed42-46b5-a58f-dad7ebc0ca17.png" /> <span style="padding-left: 20px">Healthy is a Trend</span></a>
+
+          <a class="list-group-item list-group-item-action ctstyle itemlist" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home" onclick="javascript:chosen('image2')" ><image width="20%" id="image2" src="http://image.s4.exct.net/lib/fe8e1574746203787c/m/1/4c73b248-ab34-4ac7-9cf1-4f15ab894f97.png" /><span style="padding-left: 20px">โครงการเมืองไทย สบายใจ เกินคุ้ม</span></a>
+
+          <a class="list-group-item list-group-item-action ctstyle itemlist" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home" onclick="javascript:chosen('image3')"><image width="20%" id="image3" src="http://image.s4.exct.net/lib/fe8e1574746203787c/m/1/1af6fb52-0736-48af-9772-511b61cc325a.jpg" /> <span style="padding-left: 20px">Yim Sabai Muang Thai Haikuen</span></a>
+
+          <a class="list-group-item list-group-item-action ctstyle itemlist" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home" onclick="javascript:chosen('image4')"><image width="20%" id="image4" src="http://image.s4.exct.net/lib/fe8e1574746203787c/m/1/01772232-94b3-4a6a-8f99-fb2a6fdad246.png" /> <span style="padding-left: 20px">Elite Health</span></a>
+
+          <a class="list-group-item list-group-item-action ctstyle itemlist" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home" onclick="javascript:chosen('image5')"><image width="20%" id="image5" src="http://image.s4.exct.net/lib/fe8e1574746203787c/m/1/016e027d-5e68-4066-96f1-b9669d9bb4a8.jpg" /> <span style="padding-left: 20px">CI Perfect Care Rider</span></a>
+
+          <a class="list-group-item list-group-item-action ctstyle itemlist" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home" onclick="javascript:chosen('image6')"><image width="20%" id="image6" src="http://image.s4.exct.net/lib/fe8e1574746203787c/m/1/5e4295d2-60fb-49da-92c9-3be8eecd0dc1.jpg" /> <span style="padding-left: 20px">Smart Health Rider</span></a>
+       </div>
+  </div>
+
+</div>
+
+
+
+
+ <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+
+	<script src="/blocksdk.js"></script>
+
+  <script>
+
+    var selectedImageId, image;
+
+function chosen(imgId) {
+  
+
+  var sdk = new window.sfdc.BlockSDK(); //initalize SDK
+  sdk.setContent(""); //resets content block
+
+  var fit = document.getElementById('scaleFit').checked;
+  var acenter = document.getElementById('alignCenter').checked;
+  
+  selectedImageId = imgId;
+
+  if(imgId != ""){
+    image = document.getElementById(imgId).src;
+  }
+
+  //alert(image); //test
+
+  if(fit){
+    sdk.setContent("<img width='100%' src='" + image + "'/>");
+
+  }else{
+        
+    if(acenter){
+        sdk.setContent("<center><img src='" + image + "'/></center>");
+      
+      }else{
+      sdk.setContent("<img src='" + image + "'/>");
+   
+    }
+  }
+}
+      
+    </script>
+</body>
+</html>
