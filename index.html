@@ -1,7 +1,7 @@
 <html>
 
 <head>
-	
+
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
@@ -28,7 +28,7 @@
 <img width="80%" src="http://image.s4.exct.net/lib/fe8e1574746203787c/m/1/6bc4b8b8-19f2-41d3-8081-129b7b5a01c8.png" />
 <br />
 
-Select an image to from Sitecore CMS
+Select an image to from Giphy CMS
 <br />
 
 	<input type="checkbox" id="scaleFit" onclick="javascript:chosen('')" value="Yes" ><span class="itemlist" style="padding-left: 10px;padding-right: 10px;">Scale to fit</span></input>
@@ -72,14 +72,14 @@ Select an image to from Sitecore CMS
     var selectedImageId, image;
 
 function chosen(imgId) {
-  
+
 
   var sdk = new window.sfdc.BlockSDK(); //initalize SDK
   sdk.setContent(""); //resets content block
 
   var fit = document.getElementById('scaleFit').checked;
   var acenter = document.getElementById('alignCenter').checked;
-  
+
   selectedImageId = imgId;
 
   if(imgId != ""){
@@ -92,17 +92,17 @@ function chosen(imgId) {
     sdk.setContent("<img width='100%' src='" + image + "'/>");
 
   }else{
-        
+
     if(acenter){
         sdk.setContent("<center><img src='" + image + "'/></center>");
-      
+
       }else{
       sdk.setContent("<img src='" + image + "'/>");
-   
+
     }
   }
 }
-      
+
     </script>
 </body>
 </html>
