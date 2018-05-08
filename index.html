@@ -76,13 +76,7 @@ $(document).ready(function(){
 var offset = 0;
 
 // get the trending gifs
-/*
-$.ajax({url: "https://api.giphy.com/v1/gifs/trending?api_key=zY2jNXB6UERsJOv9QweHDlhwn7dU32bO&limit=10&offset="+offset+"&rating=G", success: function(result){
-  for (i = 0; i < result.data.length; i++) {
-    $("#list-tab").append("<a class=\"list-group-item list-group-item-action ctstyle itemlist\" id=\"list-home-list\" data-toggle=\"list\" href=\"#list-home\" role=\"tab\" aria-controls=\"home\" onclick=\"javascript:chosen('image" + i + "')\"><image width=\"20%\" id=\"image" + i + "\" src=\""+result.data[i].images.preview_gif['url']+"\" /> <span style=\"padding-left: 20px\">"+result.data[0].title+"</span></a>")
-  }
-}});
-*/
+
 fetchGifs(offset);
 
 $("#Next").click(function(){
@@ -93,19 +87,28 @@ $("#Next").click(function(){
 
     $("#Search").click(function(){
 				var term = $("#search_term").val();
-				alert(term);
-        $.ajax({url: "https://api.giphy.com/v1/gifs/trending?api_key=zY2jNXB6UERsJOv9QweHDlhwn7dU32bO&limit=25&rating=G", success: function(result){
-            $("#div1").html("<img src='"+result.data[0].images.preview_gif['url']+"'/>");
-        }});
+        fetchGifs(offset, term);
     });
 });
 
-function fetchGifs(offset) {
-  //clearGifs();
-  $.ajax({url: "https://api.giphy.com/v1/gifs/trending?api_key=zY2jNXB6UERsJOv9QweHDlhwn7dU32bO&limit=10&offset="+offset+"&rating=G", success: function(result){
-    for (i = 0; i < result.data.length; i++) {
-      if (result.data[i].images.preview_webp['url']) {
-        $("#list-tab").append("<a class=\"list-group-item list-group-item-action ctstyle itemlist\" id=\"list-home-list\" data-toggle=\"list\" href=\"#list-home\" role=\"tab\" aria-controls=\"home\" onclick=\"javascript:chosen('image" + result.data[i].id + "')\"><image width=\"20%\" id=\"image" + result.data[i].id + "\" src=\""+result.data[i].images.preview_webp['url']+"\" /> <span style=\"padding-left: 20px\">"+result.data[i].title+"</span></a>")
+function fetchGifs(offset, searchterm) {
+
+
+  var apiurl = "";
+
+  if (searchterm) {
+    clearGifs();
+
+    apiurl = "https://api.giphy.com/v1/gifs/search?api_key=zY2jNXB6UERsJOv9QweHDlhwn7dU32bO&q="+searchterm+"&limit=10&offset="+offset+"&rating=G&lang=en";
+
+  } else {
+    apiurl = "https://api.giphy.com/v1/gifs/trending?api_key=zY2jNXB6UERsJOv9QweHDlhwn7dU32bO&limit=10&offset="+offset+"&rating=G";
+    
+  }
+  $.ajax({url: apiurl, success: function(result){
+    for (i = 0; i < result.data.length; i++) { 
+    if (result.data[i].images.preview_gif['url']) {
+        $("#list-tab").append("<a class=\"list-group-item list-group-item-action ctstyle itemlist\" id=\"list-home-list\" data-toggle=\"list\" href=\"#list-home\" role=\"tab\" aria-controls=\"home\" onclick=\"javascript:chosen('image" + result.data[i].id + "')\"><image width=\"20%\" id=\"image" + result.data[i].id + "\" src=\""+result.data[i].images.preview_gif['url']+"\" /> <span style=\"padding-left: 20px\">"+result.data[i].title+"</span></a>")
       }
     }
   }});
