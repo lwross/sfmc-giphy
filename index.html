@@ -41,7 +41,12 @@ Select an image to from Giphy CMS
 
   <div >
     <div class="list-group" id="list-tab" role="tablist">
-       </div>
+    </div>
+    
+    <input type="button" id="Next" value="More"><span class="itemlist" style="padding-left: 10px;padding-right: 10px;"></span></input><br />
+
+    
+
   </div>
 
 </div>
@@ -70,12 +75,22 @@ function sesarch() {
 
 $(document).ready(function(){
 
+var offset = 0;
+
 // get the trending gifs
-$.ajax({url: "https://api.giphy.com/v1/gifs/trending?api_key=zY2jNXB6UERsJOv9QweHDlhwn7dU32bO&limit=10&rating=G", success: function(result){
+/*
+$.ajax({url: "https://api.giphy.com/v1/gifs/trending?api_key=zY2jNXB6UERsJOv9QweHDlhwn7dU32bO&limit=10&offset="+offset+"&rating=G", success: function(result){
   for (i = 0; i < result.data.length; i++) { 
     $("#list-tab").append("<a class=\"list-group-item list-group-item-action ctstyle itemlist\" id=\"list-home-list\" data-toggle=\"list\" href=\"#list-home\" role=\"tab\" aria-controls=\"home\" onclick=\"javascript:chosen('image" + i + "')\"><image width=\"20%\" id=\"image" + i + "\" src=\""+result.data[i].images.preview_gif['url']+"\" /> <span style=\"padding-left: 20px\">"+result.data[0].title+"</span></a>")
   }
 }});
+*/
+fetchGifs(offset);
+
+$("#Next").click(function(){
+				offset += 10;
+        fetchGifs(offset);
+    });
 
 
     $("#Search").click(function(){
@@ -86,6 +101,22 @@ $.ajax({url: "https://api.giphy.com/v1/gifs/trending?api_key=zY2jNXB6UERsJOv9Qwe
         }});
     });
 });
+
+function fetchGifs(offset) {
+  //clearGifs();
+  $.ajax({url: "https://api.giphy.com/v1/gifs/trending?api_key=zY2jNXB6UERsJOv9QweHDlhwn7dU32bO&limit=10&offset="+offset+"&rating=G", success: function(result){
+    for (i = 0; i < result.data.length; i++) { 
+      if (result.data[i].images.preview_webp['url']) {
+        $("#list-tab").append("<a class=\"list-group-item list-group-item-action ctstyle itemlist\" id=\"list-home-list\" data-toggle=\"list\" href=\"#list-home\" role=\"tab\" aria-controls=\"home\" onclick=\"javascript:chosen('image" + result.data[i].id + "')\"><image width=\"20%\" id=\"image" + result.data[i].id + "\" src=\""+result.data[i].images.preview_webp['url']+"\" /> <span style=\"padding-left: 20px\">"+result.data[i].title+"</span></a>")
+      }
+    }
+  }});
+
+}
+
+function clearGifs() {
+  $("#list-tab").html("");
+}
 
 function chosen(imgId) {
 
