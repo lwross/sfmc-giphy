@@ -43,7 +43,7 @@ Select an image to from Giphy CMS
     <div class="list-group" id="list-tab" role="tablist">
     </div>
 
-    <input type="button" id="Next" value="More"><span class="itemlist" style="padding-left: 10px;padding-right: 10px;"></span></input><br />
+    <!-- <input type="button" id="Next" value="More"><span class="itemlist" style="padding-left: 10px;padding-right: 10px;"></span></input><br /> -->
 
 
 
@@ -67,7 +67,8 @@ Select an image to from Giphy CMS
   <script>
 
     var selectedImageId, image;
-
+    var offset = 0;
+    var term = "";
 $(document).ready(function(){
 
 /*
@@ -75,8 +76,7 @@ $(document).ready(function(){
   sdk.setContent('<img width="50px" src="https://sfmc-giphy.herokuapp.com/giphy.gif" />'); //resets content block
 */
 
-var offset = 0;
-var term = "";
+
 
 // get the trending gifs
 
@@ -89,6 +89,7 @@ $("#Next").click(function(){
 
 
     $("#Search").click(function(){
+        offset = 0;
 				term = $("#search_term").val();
         fetchGifs(offset, term, true);
     });
@@ -149,6 +150,13 @@ function chosen(imgId) {
     }
   }
 }
+
+window.onscroll = function(ev) {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+      offset +=10;
+      fetchGifs(offset, term);
+    }
+};
 
     </script>
 </body>
