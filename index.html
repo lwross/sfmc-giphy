@@ -70,10 +70,13 @@ Select an image to from Giphy CMS
 
 $(document).ready(function(){
 
+/*
 	var sdk = new window.sfdc.BlockSDK(); //initalize SDK
   sdk.setContent('<img width="50px" src="https://sfmc-giphy.herokuapp.com/giphy.gif" />'); //resets content block
+*/
 
 var offset = 0;
+var term = "";
 
 // get the trending gifs
 
@@ -81,29 +84,28 @@ fetchGifs(offset);
 
 $("#Next").click(function(){
 				offset += 10;
-        fetchGifs(offset);
+        fetchGifs(offset, term);
     });
 
 
     $("#Search").click(function(){
-				var term = $("#search_term").val();
-        fetchGifs(offset, term);
+				term = $("#search_term").val();
+        fetchGifs(offset, term, true);
     });
 });
 
-function fetchGifs(offset, searchterm) {
+function fetchGifs(offset, searchterm, clear) {
 
 
   var apiurl = "";
 
   if (searchterm) {
-    clearGifs();
-
+    if (clear) {
+      clearGifs();
+    }
     apiurl = "https://api.giphy.com/v1/gifs/search?api_key=zY2jNXB6UERsJOv9QweHDlhwn7dU32bO&q="+searchterm+"&limit=10&offset="+offset+"&rating=G&lang=en";
-
   } else {
     apiurl = "https://api.giphy.com/v1/gifs/trending?api_key=zY2jNXB6UERsJOv9QweHDlhwn7dU32bO&limit=10&offset="+offset+"&rating=G";
-    
   }
   $.ajax({url: apiurl, success: function(result){
     for (i = 0; i < result.data.length; i++) { 
