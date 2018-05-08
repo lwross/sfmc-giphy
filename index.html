@@ -72,9 +72,10 @@ $(document).ready(function(){
 
 // get the trending gifs
 $.ajax({url: "https://api.giphy.com/v1/gifs/trending?api_key=zY2jNXB6UERsJOv9QweHDlhwn7dU32bO&limit=10&rating=G", success: function(result){
-  $("#list-tab").append(   "<a class=\"list-group-item list-group-item-action ctstyle itemlist\" id=\"list-home-list\" data-toggle=\"list\" href=\"#list-home\" role=\"tab\" aria-controls=\"home\" onclick=\"javascript:chosen('image1')\"><image width=\"20%\" id=\"image1\" src=\""+result.data[0].images.preview_gif['url']+"\" /> <span style=\"padding-left: 20px\">Image 1</span></a>")
+  for (i = 0; i < result.data.length; i++) { 
+    $("#list-tab").append("<a class=\"list-group-item list-group-item-action ctstyle itemlist\" id=\"list-home-list\" data-toggle=\"list\" href=\"#list-home\" role=\"tab\" aria-controls=\"home\" onclick=\"javascript:chosen('image" + i + "')\"><image width=\"20%\" id=\"image" + i + "\" src=\""+result.data[i].images.preview_gif['url']+"\" /> <span style=\"padding-left: 20px\">"+result.data[0].title+"</span></a>")
+  }
 }});
-
 
 
     $("#Search").click(function(){
@@ -88,7 +89,6 @@ $.ajax({url: "https://api.giphy.com/v1/gifs/trending?api_key=zY2jNXB6UERsJOv9Qwe
 
 function chosen(imgId) {
 
-
   var sdk = new window.sfdc.BlockSDK(); //initalize SDK
   sdk.setContent(""); //resets content block
 
@@ -100,8 +100,6 @@ function chosen(imgId) {
   if(imgId != ""){
     image = document.getElementById(imgId).src;
   }
-
-  //alert(image); //test
 
   if(fit){
     sdk.setContent("<img width='100%' src='" + image + "'/>");
