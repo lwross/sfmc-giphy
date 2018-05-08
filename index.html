@@ -30,7 +30,8 @@
 
 Select an image to from Giphy CMS
 <br />
-
+<input type="text" id="search_term"><span class="itemlist" style="padding-left: 10px;padding-right: 10px;"></span></input>
+<input type="button" id="Search" value="Search"><span class="itemlist" style="padding-left: 10px;padding-right: 10px;"></span></input><br />
 	<input type="checkbox" id="scaleFit" onclick="javascript:chosen('')" value="Yes" ><span class="itemlist" style="padding-left: 10px;padding-right: 10px;">Scale to fit</span></input>
 <input type="checkbox" id="alignCenter" onclick="javascript:chosen('')" value="Yes" ><span class="itemlist" style="padding-left: 10px;padding-right: 10px;">Align to Center</span></input>
 </p>
@@ -55,6 +56,7 @@ Select an image to from Giphy CMS
   </div>
 
 </div>
+<div id="div1"></div>
 
 
 
@@ -62,14 +64,30 @@ Select an image to from Giphy CMS
  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
 
-	<script src="/blocksdk.js"></script>
+	<script src="blocksdk.js"></script>
 
   <script>
 
     var selectedImageId, image;
+
+function sesarch() {
+	var term = document.getElementById("search_term").value;
+	alert(term);
+}
+
+$(document).ready(function(){
+    $("#Search").click(function(){
+				var term = $("#search_term").val();
+				alert(term);
+        $.ajax({url: "https://api.giphy.com/v1/gifs/trending?api_key=zY2jNXB6UERsJOv9QweHDlhwn7dU32bO&limit=25&rating=G", success: function(result){
+            $("#div1").html("<img src='"+result.data[0].images.preview_gif['url']+"'/>");
+        }});
+    });
+});
 
 function chosen(imgId) {
 
