@@ -71,7 +71,7 @@ Select an image to from Giphy CMS
 $(document).ready(function(){
 
 	var sdk = new window.sfdc.BlockSDK(); //initalize SDK
-  sdk.setContent('<img width="50px" src="https://sfmc-giphy.herokuapp.com/giphy.gif" />'); //resets content block
+  sdk.setContent('<center><img width="50px" src="https://sfmc-giphy.herokuapp.com/giphy.gif" /></center>'); //resets content block
 
 var offset = 0;
 
@@ -103,10 +103,10 @@ function fetchGifs(offset, searchterm) {
 
   } else {
     apiurl = "https://api.giphy.com/v1/gifs/trending?api_key=zY2jNXB6UERsJOv9QweHDlhwn7dU32bO&limit=10&offset="+offset+"&rating=G";
-    
+
   }
   $.ajax({url: apiurl, success: function(result){
-    for (i = 0; i < result.data.length; i++) { 
+    for (i = 0; i < result.data.length; i++) {
     if (result.data[i].images.preview_gif['url']) {
         $("#list-tab").append("<a class=\"list-group-item list-group-item-action ctstyle itemlist\" id=\"list-home-list\" data-toggle=\"list\" href=\"#list-home\" role=\"tab\" aria-controls=\"home\" onclick=\"javascript:chosen('image" + result.data[i].id + "')\"><image width=\"20%\" id=\"image" + result.data[i].id + "\" src=\""+result.data[i].images.preview_gif['url']+"\" /> <span style=\"padding-left: 20px\">"+result.data[i].title+"</span></a>")
       }
