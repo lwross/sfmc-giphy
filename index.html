@@ -42,10 +42,10 @@ Select an image to from Giphy CMS
   <div >
     <div class="list-group" id="list-tab" role="tablist">
     </div>
-    
+
     <input type="button" id="Next" value="More"><span class="itemlist" style="padding-left: 10px;padding-right: 10px;"></span></input><br />
 
-    
+
 
   </div>
 
@@ -68,19 +68,17 @@ Select an image to from Giphy CMS
 
     var selectedImageId, image;
 
-function sesarch() {
-	var term = document.getElementById("search_term").value;
-	alert(term);
-}
-
 $(document).ready(function(){
+
+	var sdk = new window.sfdc.BlockSDK(); //initalize SDK
+  sdk.setContent('<img width="50px" src="giphy.gif" />'); //resets content block
 
 var offset = 0;
 
 // get the trending gifs
 /*
 $.ajax({url: "https://api.giphy.com/v1/gifs/trending?api_key=zY2jNXB6UERsJOv9QweHDlhwn7dU32bO&limit=10&offset="+offset+"&rating=G", success: function(result){
-  for (i = 0; i < result.data.length; i++) { 
+  for (i = 0; i < result.data.length; i++) {
     $("#list-tab").append("<a class=\"list-group-item list-group-item-action ctstyle itemlist\" id=\"list-home-list\" data-toggle=\"list\" href=\"#list-home\" role=\"tab\" aria-controls=\"home\" onclick=\"javascript:chosen('image" + i + "')\"><image width=\"20%\" id=\"image" + i + "\" src=\""+result.data[i].images.preview_gif['url']+"\" /> <span style=\"padding-left: 20px\">"+result.data[0].title+"</span></a>")
   }
 }});
@@ -105,7 +103,7 @@ $("#Next").click(function(){
 function fetchGifs(offset) {
   //clearGifs();
   $.ajax({url: "https://api.giphy.com/v1/gifs/trending?api_key=zY2jNXB6UERsJOv9QweHDlhwn7dU32bO&limit=10&offset="+offset+"&rating=G", success: function(result){
-    for (i = 0; i < result.data.length; i++) { 
+    for (i = 0; i < result.data.length; i++) {
       if (result.data[i].images.preview_webp['url']) {
         $("#list-tab").append("<a class=\"list-group-item list-group-item-action ctstyle itemlist\" id=\"list-home-list\" data-toggle=\"list\" href=\"#list-home\" role=\"tab\" aria-controls=\"home\" onclick=\"javascript:chosen('image" + result.data[i].id + "')\"><image width=\"20%\" id=\"image" + result.data[i].id + "\" src=\""+result.data[i].images.preview_webp['url']+"\" /> <span style=\"padding-left: 20px\">"+result.data[i].title+"</span></a>")
       }
