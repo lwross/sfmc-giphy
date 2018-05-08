@@ -112,9 +112,9 @@ function fetchGifs(offset, searchterm, clear) {
   }
   $.ajax({url: apiurl, success: function(result){
     for (i = 0; i < result.data.length; i++) { 
-    if (result.data[i].images.preview_gif['url'] && result.data[i].images.original['url'] ) {
+    if (result.data[i].images.preview_gif['url'] && result.data[i].images.original['webp'] ) {
         $("#list-tab").append("<a class=\"list-group-item list-group-item-action ctstyle itemlist\" id=\"list-home-list\" data-toggle=\"list\" href=\"#list-home\" role=\"tab\" aria-controls=\"home\" onclick=\"javascript:chosen('image" + result.data[i].id + "')\"><image width=\"20%\" id=\"image" + result.data[i].id + "\" src=\""+result.data[i].images.preview_gif['url']+"\" /> <span style=\"padding-left: 20px\">"+result.data[i].title+"</span></a>")
-        originals["image"+result.data[i].id] = result.data[i].images.original['url'];
+        originals["image"+result.data[i].id] = result.data[i].images.original['webp'];
       }
     }
   }});
